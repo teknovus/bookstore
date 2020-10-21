@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Header, Table } from 'semantic-ui-react';
+import { Button, Header, Table } from 'semantic-ui-react';
 //import Table from './Table.js';
 
 export default class Catalog extends Component {
@@ -40,6 +40,14 @@ export default class Catalog extends Component {
     this.setState({ responseToPost: body });
   };
 
+  buttonCarousel = () => {
+    return <Button.Group className="centered">
+      <Button color="green">Insert</Button>
+      <Button color="blue">Update</Button>
+      <Button color="red">Delete</Button>
+    </Button.Group>
+  }
+
   displayHeaders = () => {
     {
       return <Table.Row>
@@ -55,6 +63,7 @@ export default class Catalog extends Component {
     {
       return this.state.table.map(table =>
         <Table.Row key={table.Title}>
+          <Table.Cell>{table.Title} </Table.Cell>
           <Table.Cell>{table.Author} </Table.Cell>
           <Table.Cell>{table.Genres} </Table.Cell>
           <Table.Cell>{table.PublicationDate}</Table.Cell>
@@ -67,9 +76,10 @@ export default class Catalog extends Component {
     return (
       <div>
         <Header as='h1'>
-          HOLD UP RING DING DING DING DING DING DING DING
+          Use buttons below to make changes to the table
         </Header>
-        {this.state.response
+        {this.buttonCarousel()}
+        {this.state.table
           ? (<Table celled>
             <Table.Header>
               {this.displayHeaders()}

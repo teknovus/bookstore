@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Button, Header, Table } from 'semantic-ui-react';
 
-export default class Orders extends Component {
+export default class Wholesale extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -12,7 +12,7 @@ export default class Orders extends Component {
 
     componentDidMount() {
         let self = this;
-        fetch('/bookstore/Orders', {
+        fetch('/bookstore/Wholesale', {
             method: 'GET'
         }).then(function(response) {
             if (response.status >= 400) {
@@ -37,12 +37,14 @@ export default class Orders extends Component {
     displayHeaders = () => {
         {
             return <Table.Row>
-                <Table.HeaderCell>CustomerID</Table.HeaderCell>
-                <Table.HeaderCell>OrderNumber</Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
                 <Table.HeaderCell>ISBN</Table.HeaderCell>
+                <Table.HeaderCell>Publisher</Table.HeaderCell>
+                <Table.HeaderCell>UnitPrice</Table.HeaderCell>
+                <Table.HeaderCell>UnitsPurchased</Table.HeaderCell>
+                <Table.HeaderCell>TotalPrice</Table.HeaderCell>
+                <Table.HeaderCell>OrderID</Table.HeaderCell>
                 <Table.HeaderCell>OrderDate</Table.HeaderCell>
-                <Table.HeaderCell>Price</Table.HeaderCell>
-                <Table.HeaderCell>Status</Table.HeaderCell>
             </Table.Row>
         }
     }
@@ -50,13 +52,14 @@ export default class Orders extends Component {
     displayValues = () => {
         {
             return this.state.table.map(table =>
-                <Table.Row key={table.OrderNumber}>
-                    <Table.Cell>{table.CustomerID} </Table.Cell>
-                    <Table.Cell>{table.OrderNumber} </Table.Cell>
+                <Table.Row key={table.OrderID}>
                     <Table.Cell>{table.ISBN} </Table.Cell>
+                    <Table.Cell>{table.Publisher} </Table.Cell>
+                    <Table.Cell>{table.UnitPrice} </Table.Cell>
+                    <Table.Cell>{table.UnitsPurchased}</Table.Cell>
+                    <Table.Cell>{table.TotalPrice}</Table.Cell>
+                    <Table.Cell>{table.OrderID}</Table.Cell>
                     <Table.Cell>{table.OrderDate}</Table.Cell>
-                    <Table.Cell>{table.Price}</Table.Cell>
-                    <Table.Cell>{table.Status}</Table.Cell>
                 </Table.Row>
             )
         }

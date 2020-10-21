@@ -10,7 +10,7 @@ export default class Home extends Component{
                     Welcome to our Bookstore Project for CS348
                 </Header>
                 <div>
-                    BRUH MOMENT
+                    Developed by Owen Shen, Connor Crowe, Joshua Hu
                 </div>
             </div>
         );

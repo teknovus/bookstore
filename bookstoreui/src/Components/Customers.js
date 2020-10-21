@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Header, Table } from 'semantic-ui-react';
+import { Button, Header, Table } from 'semantic-ui-react';
 
 export default class Customers extends Component {
     constructor(props) {
@@ -48,6 +48,14 @@ export default class Customers extends Component {
         this.setState({ responseToPost: body });
     };
 
+    buttonCarousel = () => {
+        return <Button.Group className="centered">
+          <Button color="green">Insert</Button>
+          <Button color="blue">Update</Button>
+          <Button color="red">Delete</Button>
+        </Button.Group>
+    }
+
     displayHeaders = () => {
         {
             return <Table.Row>
@@ -75,6 +83,10 @@ export default class Customers extends Component {
     render() {
         return (
             <div>
+                <Header as='h1'>
+                    Use buttons below to make changes to the table
+                </Header>
+                {this.buttonCarousel()}
                 {this.state.table
                     ? (<Table celled>
                         <Table.Header>
