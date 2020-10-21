@@ -22,9 +22,9 @@ export default class Navbar extends Component{
         />
         <Menu.Item
           as = { Link }
-          to = '/Other'
-          name='other'
-          active={activeItem === 'Other'}
+          to = '/Catalog'
+          name='Catalog'
+          active={activeItem === 'Catalog'}
           onClick={this.handleItemClick}
         />
       </Menu>

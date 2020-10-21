@@ -21,10 +21,56 @@ app.route('/bookstore/Catalog')
     );
   });
 
+
+app.route('/bookstore/Customers')
+  .get(function(req, res, next) {
+    connection.query(
+      "SELECT * FROM Customers", req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.json(results);
+      }
+    );
+  });
+
+app.route('/bookstore/Stock')
+  .get(function(req, res, next) {
+    connection.query(
+      "SELECT * FROM Stock", req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.json(results);
+      }
+    );
+  });
+
+app.route('/bookstore/Orders')
+  .get(function(req, res, next) {
+    connection.query(
+      "SELECT * FROM Orders", req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.json(results);
+      }
+    );
+  });
+
+app.route('/bookstore/Wholesale')
+  .get(function(req, res, next) {
+    connection.query(
+      "SELECT * FROM Wholesale", req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.json(results);
+      }
+    );
+  });
+
+
 app.get('/status', (req, res) => res.send('Working!'));
 
 // Port 8080 for Google App Engine
-app.set('port', process.env.PORT || 3000);
-app.listen(3000, () => {
-  console.log("Server is running on port 3000.");
+app.set('port', process.env.PORT || 5000);
+app.listen(5000, () => {
+  console.log("Server is running on port 5000.");
 });

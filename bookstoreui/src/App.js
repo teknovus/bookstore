@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import { Container } from 'semantic-ui-react';
 import Navbar from './Components/Navbar.js';
 import Home from './Components/Home.js';
-import Other from './Components/Other.js';
+import Catalog from './Components/Catalog.js';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Navbar />
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/other" component={Other} />
+              <Route path="/Catalog" component={Catalog} />
               <Redirect to="/" />
             </Switch>   
         </Container>
