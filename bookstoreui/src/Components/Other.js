@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import '../App.css';
 
-export default class Home extends Component{
+export default class Other extends Component{
     render(){
         return(
             <div>
-                This is how you eat a big mac
+                HOLD UP RING DING DING DING DING DING DING DING
             </div>
         );
     }
