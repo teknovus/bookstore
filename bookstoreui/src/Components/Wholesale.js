@@ -37,7 +37,7 @@ export default class Wholesale extends Component {
     displayHeaders = () => {
         {
             return <Table.Row>
-                <Table.HeaderCell></Table.HeaderCell>
+                <Table.HeaderCell>OrderID</Table.HeaderCell>
                 <Table.HeaderCell>ISBN</Table.HeaderCell>
                 <Table.HeaderCell>Publisher</Table.HeaderCell>
                 <Table.HeaderCell>UnitPrice</Table.HeaderCell>
@@ -53,6 +53,7 @@ export default class Wholesale extends Component {
         {
             return this.state.table.map(table =>
                 <Table.Row key={table.OrderID}>
+                    <Table.Cell>{table.OrderID} </Table.Cell>
                     <Table.Cell>{table.ISBN} </Table.Cell>
                     <Table.Cell>{table.Publisher} </Table.Cell>
                     <Table.Cell>{table.UnitPrice} </Table.Cell>
