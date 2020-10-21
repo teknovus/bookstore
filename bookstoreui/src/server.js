@@ -28,7 +28,7 @@ app.route('/bookstore/Customers')
       "SELECT * FROM Customers", req.params.userId,
       function(error, results, fields) {
         if (error) throw error;
-        res.json(results);
+        res.send(JSON.stringify(results));
       }
     );
   });
@@ -39,7 +39,7 @@ app.route('/bookstore/Stock')
       "SELECT * FROM Stock", req.params.userId,
       function(error, results, fields) {
         if (error) throw error;
-        res.json(results);
+        res.send(JSON.stringify(results));
       }
     );
   });
@@ -50,7 +50,7 @@ app.route('/bookstore/Orders')
       "SELECT * FROM Orders", req.params.userId,
       function(error, results, fields) {
         if (error) throw error;
-        res.json(results);
+        res.send(JSON.stringify(results));
       }
     );
   });
@@ -61,7 +61,7 @@ app.route('/bookstore/Wholesale')
       "SELECT * FROM Wholesale", req.params.userId,
       function(error, results, fields) {
         if (error) throw error;
-        res.json(results);
+        res.send(JSON.stringify(results));
       }
     );
   });

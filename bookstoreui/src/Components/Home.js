@@ -7,7 +7,7 @@ export default class Home extends Component{
         return(
             <div>
                 <Header as='h1'>
-                    My Name Jeff
+                    Welcome to our Bookstore Project for CS348
                 </Header>
                 <div>
                     BRUH MOMENT

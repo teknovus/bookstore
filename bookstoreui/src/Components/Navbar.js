@@ -27,6 +27,34 @@ export default class Navbar extends Component{
           active={activeItem === 'Catalog'}
           onClick={this.handleItemClick}
         />
+        <Menu.Item
+          as = { Link }
+          to = '/Customers'
+          name='Customers'
+          active={activeItem === 'Customers'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
+          as = { Link }
+          to = '/Stock'
+          name='Stock'
+          active={activeItem === 'Stock'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
+          as = { Link }
+          to = '/Orders'
+          name='Orders'
+          active={activeItem === 'Orders'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
+          as = { Link }
+          to = '/Wholesale'
+          name='Wholesale'
+          active={activeItem === 'Wholesale'}
+          onClick={this.handleItemClick}
+        />
       </Menu>
     )
   }
