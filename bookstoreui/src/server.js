@@ -16,7 +16,7 @@ app.route('/bookstore/Catalog')
       "SELECT * FROM Catalog", req.params.userId,
       function(error, results, fields) {
         if (error) throw error;
-        res.json(results);
+        res.send(JSON.stringify(results));
       }
     );
   });

@@ -1,58 +1,93 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Header } from 'semantic-ui-react';
+import { Header, Table } from 'semantic-ui-react';
 
 export default class Customers extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            Customers: []
+            table: [],
+            post: '',
+            esponseToPost: ''
         }
     }
 
     componentDidMount() {
+        this.callApi()
+            .then(res => this.setState({ table: res }))
+            .catch(err => console.log(err));
+    }
+
+    callApi = async () => {
         let self = this;
         fetch('/bookstore/Customers', {
             method: 'GET'
-        }).then(function(response) {
+        }).then(function (response) {
             if (response.status >= 400) {
                 throw new Error("Bad response from server");
             }
             return response.json();
-        }).then(function(data) {
-            self.setState({Customers: data});
+        }).then(function (data) {
+            self.setState({ table: data });
         }).catch(err => {
-        console.log('caught it!',err);
+            console.log('caught it!', err);
         })
+    }
+
+    //Template for INSERT and other operations
+    handleSubmit = async e => {
+        e.preventDefault();
+        const response = await fetch('/api/world', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ post: this.state.post }),
+        });
+        const body = await response.text();
+        this.setState({ responseToPost: body });
+    };
+
+    displayHeaders = () => {
+        {
+            return <Table.Row>
+                <Table.HeaderCell>CustomerID</Table.HeaderCell>
+                <Table.HeaderCell>Name</Table.HeaderCell>
+                <Table.HeaderCell>IsMember</Table.HeaderCell>
+                <Table.HeaderCell>Credit</Table.HeaderCell>
+            </Table.Row>
+        }
+    }
+
+    displayValues = () => {
+        {
+            return this.state.table.map(table =>
+                <Table.Row key={table.CustomerID}>
+                    <Table.Cell>{table.CustomerID} </Table.Cell>
+                    <Table.Cell>{table.Name} </Table.Cell>
+                    <Table.Cell>{table.IsMember}</Table.Cell>
+                    <Table.Cell>{table.Credit}</Table.Cell>
+                </Table.Row>
+            )
+        }
     }
 
     render() {
         return (
-            <div className="container center"> 
-                <div className="panel panel-default p50 uth-panel">
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>isMember</th>
-                                <th>Credit</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {this.state.Customers.map(Customers =>
-                            <tr key={Customers.CustomerID}>
-                            <td>{Customers.Name} </td>
-                            <td>{Customers.IsMember}</td>
-                            <td>{Customers.Credit}</td>
-                            <td><a>Edit</a>|<a>Delete</a></td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                    
-                </div>
+            <div>
+                {this.state.table
+                    ? (<Table celled>
+                        <Table.Header>
+                            {this.displayHeaders()}
+                        </Table.Header>
+
+                        <Table.Body>
+                            {this.displayValues()}
+                        </Table.Body>
+                    </Table>)
+                    : (<Header as='h3'> LOADING... </Header>)
+                }
             </div>
-            );
+        );
     }
 }

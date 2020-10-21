@@ -11,6 +11,7 @@ export default class Stock extends Component {
     }
 
     componentDidMount() {
+        let self = this;
         fetch('/bookstore/Stock', {
             method: 'GET'
         }).then(function(response) {
@@ -19,7 +20,7 @@ export default class Stock extends Component {
             }
             return response.json();
         }).then(function(data) {
-            this.setState({Stock: data});
+            self.setState({Stock: data});
         }).catch(err => {
         console.log('caught it!',err);
         })
@@ -46,6 +47,7 @@ export default class Stock extends Component {
                         <td>{Stock.Title} </td>
                         <td>{Stock.NumInStock}</td>
                         <td>{Stock.PrintType}</td>
+                        <td>{Stock.Language}</td>
                         <td>{Stock.Price}</td>
                         <td><a>Edit</a>|<a>Delete</a></td>
                         </tr>
