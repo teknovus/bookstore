@@ -21,6 +21,17 @@ app.route('/bookstore/Catalog')
     );
   });
 
+app.route('/bookstore/Catalog/new')
+  .post(function(req, res, next) {
+    connection.query(
+      "insert into Catalog(Title,Author,Genres,PublicationDate) values('"+req.body.Title+"','"+req.body.Author+"','"+req.body.Genres+"','"+req.body.PublicationDate+"')", req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
 
 app.route('/bookstore/Customers')
   .get(function(req, res, next) {

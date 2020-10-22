@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Button, Header, Table } from 'semantic-ui-react';
 
+const pk = 'OrderNumber';
+
+const attributes = ['CustomerID', 'OrderNumber', 'ISBN', 'OrderDate', 'Price','Status'];
+
 export default class Orders extends Component {
     constructor(props) {
         super(props)
@@ -35,20 +39,14 @@ export default class Orders extends Component {
     }
 
     displayHeaders = () => {
-        {
             return <Table.Row>
-                <Table.HeaderCell>CustomerID</Table.HeaderCell>
-                <Table.HeaderCell>OrderNumber</Table.HeaderCell>
-                <Table.HeaderCell>ISBN</Table.HeaderCell>
-                <Table.HeaderCell>OrderDate</Table.HeaderCell>
-                <Table.HeaderCell>Price</Table.HeaderCell>
-                <Table.HeaderCell>Status</Table.HeaderCell>
+            {attributes.map(attributes => 
+                <Table.HeaderCell key={attributes}>{ attributes }</Table.HeaderCell>)
+                }
             </Table.Row>
-        }
     }
 
     displayValues = () => {
-        {
             return this.state.table.map(table =>
                 <Table.Row key={table.OrderNumber}>
                     <Table.Cell>{table.CustomerID} </Table.Cell>
@@ -59,7 +57,6 @@ export default class Orders extends Component {
                     <Table.Cell>{table.Status}</Table.Cell>
                 </Table.Row>
             )
-        }
     }
 
     render() {

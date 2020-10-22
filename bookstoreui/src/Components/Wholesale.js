@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Button, Header, Table } from 'semantic-ui-react';
 
+const attributes = ['ISBN', 'Publisher', 'UnitPrice', 'UnitsPurchased', 'TotalPrice','OrderID','OrderDate'];
+
+const pk = 'OrderID';
+
 export default class Wholesale extends Component {
     constructor(props) {
         super(props)
@@ -35,25 +39,16 @@ export default class Wholesale extends Component {
     }
 
     displayHeaders = () => {
-        {
             return <Table.Row>
-                <Table.HeaderCell>OrderID</Table.HeaderCell>
-                <Table.HeaderCell>ISBN</Table.HeaderCell>
-                <Table.HeaderCell>Publisher</Table.HeaderCell>
-                <Table.HeaderCell>UnitPrice</Table.HeaderCell>
-                <Table.HeaderCell>UnitsPurchased</Table.HeaderCell>
-                <Table.HeaderCell>TotalPrice</Table.HeaderCell>
-                <Table.HeaderCell>OrderID</Table.HeaderCell>
-                <Table.HeaderCell>OrderDate</Table.HeaderCell>
+                {attributes.map(attributes => 
+                    <Table.HeaderCell key={attributes}>{ attributes }</Table.HeaderCell>)
+                    }
             </Table.Row>
-        }
     }
 
     displayValues = () => {
-        {
             return this.state.table.map(table =>
                 <Table.Row key={table.OrderID}>
-                    <Table.Cell>{table.OrderID} </Table.Cell>
                     <Table.Cell>{table.ISBN} </Table.Cell>
                     <Table.Cell>{table.Publisher} </Table.Cell>
                     <Table.Cell>{table.UnitPrice} </Table.Cell>
@@ -63,7 +58,6 @@ export default class Wholesale extends Component {
                     <Table.Cell>{table.OrderDate}</Table.Cell>
                 </Table.Row>
             )
-        }
     }
 
     render() {
