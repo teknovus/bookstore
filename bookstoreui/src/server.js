@@ -69,6 +69,42 @@ app.route('/bookstore/Customers')
     );
   });
 
+app.route('/bookstore/Customers/insert')
+  .post(function(req, res, next) {
+    connection.query(
+      "insert into Customers(CustomerID,Name,IsMember,Credit) values('"+req.body.CustomerID+"','"+req.body.Name+"','"+req.body.IsMember+"','"+req.body.Credit+"')", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Customers/delete')
+  .post(function(req, res, next) {
+    connection.query(
+      "DELETE from Customers where CustomerID = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Customers/update')
+  .post(function(req, res, next) {
+    connection.query(
+      "update Customers set Name = '"+req.body.Name+"', IsMember = '"+req.body.IsMember+"', Credit = '"+req.body.Credit+"' where CustomerID = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
 app.route('/bookstore/Stock')
   .get(function(req, res, next) {
     connection.query(
@@ -79,6 +115,42 @@ app.route('/bookstore/Stock')
       }
     );
   });
+
+app.route('/bookstore/Stock/insert')
+  .post(function(req, res, next) {
+    connection.query(
+      "insert into Stock(ISBN,Title,NumInStock,PrintType,Language,Price) values('"+req.body.ISBN+"','"+req.body.Title+"','"+req.body.NumInStock+"','"+req.body.PrintType+"','"+req.body.Language+"','"+req.body.Price+"')", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Stock/delete')
+  .post(function(req, res, next) {
+    connection.query(
+      "DELETE from Stock where ISBN = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Stock/update')
+  .post(function(req, res, next) {
+    connection.query(
+      "update Stock set Title='"+req.body.Title+"', NumInStock='"+req.body.NumInStock+"', PrintType='"+req.body.PrintType+"', Language='"+req.body.Language+"', Price='"+req.body.Price+"' where ISBN = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
 
 app.route('/bookstore/Orders')
   .get(function(req, res, next) {
@@ -91,6 +163,42 @@ app.route('/bookstore/Orders')
     );
   });
 
+app.route('/bookstore/Orders/insert')
+  .post(function(req, res, next) {
+    connection.query(
+      "insert into Orders(CustomerID,OrderNumber,ISBN,OrderDate,Price,Status) values('"+req.body.CustomerID+"','"+req.body.OrderNumber+"','"+req.body.ISBN+"','"+req.body.OrderDate+"','"+req.body.Price+"','"+req.body.Status+"')", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Orders/delete')
+  .post(function(req, res, next) {
+    connection.query(
+      "DELETE from Orders where OrderNumber = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Orders/update')
+  .post(function(req, res, next) {
+    connection.query( 
+      "update Orders set CustomerID='"+req.body.CustomerID+"', ISBN='"+req.body.ISBN+"', OrderDate='"+req.body.OrderDate+"', Price='"+req.body.Price+"', Status='"+req.body.Status+"' where OrderNumber = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
 app.route('/bookstore/Wholesale')
   .get(function(req, res, next) {
     connection.query(
@@ -102,6 +210,41 @@ app.route('/bookstore/Wholesale')
     );
   });
 
+  app.route('/bookstore/Wholesale/insert')
+  .post(function(req, res, next) {
+    connection.query(
+      "insert into Wholesale(ISBN,Publisher,UnitPrice,UnitsPurchased,TotalPrice,OrderID,OrderDate) values('"+req.body.ISBN+"','"+req.body.Publisher+"','"+req.body.UnitPrice+"','"+req.body.UnitsPurchased+"','"+req.body.TotalPrice+"','"+req.body.OrderID+"','"+req.body.OrderDate+"')", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Wholesale/delete')
+  .post(function(req, res, next) {
+    connection.query(
+      "DELETE from Wholesale where OrderID = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Wholesale/update')
+  .post(function(req, res, next) {
+    connection.query(
+      "update Wholesale set ISBN='"+req.body.ISBN+"',Publisher='"+req.body.Publisher+"',UnitPrice='"+req.body.UnitPrice+"',UnitsPurchased='"+req.body.UnitsPurchased+"',TotalPrice='"+req.body.TotalPrice+"',OrderDate='"+req.body.OrderDate+"' where OrderID = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
 
 app.get('/status', (req, res) => res.send('Working!'));
 

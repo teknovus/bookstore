@@ -36,16 +36,16 @@ export default class Navbar extends Component{
         />
         <Menu.Item
           as = { Link }
-          to = '/Stock'
-          name='Stock'
-          active={activeItem === 'Stock'}
+          to = '/Orders'
+          name='Orders'
+          active={activeItem === 'Orders'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           as = { Link }
-          to = '/Orders'
-          name='Orders'
-          active={activeItem === 'Orders'}
+          to = '/Stock'
+          name='Stock'
+          active={activeItem === 'Stock'}
           onClick={this.handleItemClick}
         />
         <Menu.Item

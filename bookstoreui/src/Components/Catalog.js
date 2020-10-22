@@ -4,7 +4,7 @@ import { Button, Header, Table, Form } from 'semantic-ui-react';
 //import Table from './Table.js';
 
 const attributes = ['Title', 'Author', 'Genres', 'PublicationDate'];
-//const pk = 'Title';
+const pk = 'Title';
 
 export default class Catalog extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default class Catalog extends Component {
     }
     console.log(data);
  
-    fetch('/bookstore/Catalog/insrrt', {
+    fetch('/bookstore/Catalog/insert', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export default class Catalog extends Component {
       body: JSON.stringify(data)
     }).then(function(response) { 
       if (response.status >= 400) {
-        alert("Error! Check your primary key and field values");
+        alert("Error!");
         throw new Error("Bad response from server");
       }
       //return response if correct
@@ -85,7 +85,7 @@ export default class Catalog extends Component {
         body: JSON.stringify(data)
     }).then(function(response) {
         if (response.status >= 400) {
-          alert("Error! Check your primary key and field values");
+          alert("Error!");
           throw new Error("Bad response from server");
         }
         return response.json();
@@ -111,7 +111,7 @@ export default class Catalog extends Component {
         body: JSON.stringify(data)
     }).then(function(response) {
         if (response.status >= 400) {
-          alert("Error! Check your primary key and field values");
+          alert("Error!");
           throw new Error("Bad response from server");
         }
         return response.json();
@@ -166,6 +166,9 @@ export default class Catalog extends Component {
       <div>
         <Header as='h1'>
           Use buttons below to make changes to the table
+        </Header>
+        <Header as='h3'>
+          Specify the primary key "{pk}" for Update/Delete
         </Header>
         {this.buttonCarousel()}
         <div className="paddingtop">
