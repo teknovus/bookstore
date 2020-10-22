@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Button, Header, Table } from 'semantic-ui-react';
 
-const pk = 'CustomerID';
-
 const attributes = ['CustomerID', 'Name', 'IsMember', 'Credit'];
-
+//const pk = 'CustomerID';
 
 export default class Customers extends Component {
     constructor(props) {

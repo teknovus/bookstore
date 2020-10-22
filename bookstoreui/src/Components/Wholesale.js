@@ -3,8 +3,7 @@ import '../App.css';
 import { Button, Header, Table } from 'semantic-ui-react';
 
 const attributes = ['ISBN', 'Publisher', 'UnitPrice', 'UnitsPurchased', 'TotalPrice','OrderID','OrderDate'];
-
-const pk = 'OrderID';
+//const pk = 'OrderID';
 
 export default class Wholesale extends Component {
     constructor(props) {

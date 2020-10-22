@@ -21,10 +21,35 @@ app.route('/bookstore/Catalog')
     );
   });
 
-app.route('/bookstore/Catalog/new')
+app.route('/bookstore/Catalog/insert')
   .post(function(req, res, next) {
     connection.query(
-      "insert into Catalog(Title,Author,Genres,PublicationDate) values('"+req.body.Title+"','"+req.body.Author+"','"+req.body.Genres+"','"+req.body.PublicationDate+"')", req.params.userId,
+      "insert into Catalog(Title,Author,Genres,PublicationDate) values('"+req.body.Title+"','"+req.body.Author+"','"+req.body.Genres+"','"+req.body.PublicationDate+"')", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Catalog/delete')
+  .post(function(req, res, next) {
+    connection.query(
+      "DELETE from Catalog where Title = '"+req.body.pk+"'", 
+      req.params.userId,
+      function(error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+      }
+    );
+});
+
+app.route('/bookstore/Catalog/update')
+  .post(function(req, res, next) {
+    connection.query(
+      "update Catalog set Author = '"+req.body.Author+"', Genres = '"+req.body.Genres+"', PublicationDate = '"+req.body.PublicationDate+"' where Title = '"+req.body.pk+"'", 
+      req.params.userId,
       function(error, results, fields) {
         if (error) throw error;
         res.send(JSON.stringify(results));

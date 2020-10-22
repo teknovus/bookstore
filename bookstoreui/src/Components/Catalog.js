@@ -4,14 +4,15 @@ import { Button, Header, Table, Form } from 'semantic-ui-react';
 //import Table from './Table.js';
 
 const attributes = ['Title', 'Author', 'Genres', 'PublicationDate'];
-
-const pk = 'Title';
+//const pk = 'Title';
 
 export default class Catalog extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitInsert = this.handleSubmitInsert.bind(this);
+    this.handleSubmitDelete = this.handleSubmitDelete.bind(this);
+    this.handleSubmitUpdate= this.handleSubmitUpdate.bind(this);
     this.state = {
       table: [],
       Title: '',
@@ -49,23 +50,23 @@ export default class Catalog extends Component {
     }
     console.log(data);
  
-    fetch('/bookstore/Catalog/new', {
+    fetch('/bookstore/Catalog/insrrt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
-    }).then(function(response) { //response => {
+    }).then(function(response) { 
       if (response.status >= 400) {
+        alert("Error! Check your primary key and field values");
         throw new Error("Bad response from server");
       }
       //return response if correct
       return response.json();
   }).then(function(data) {
       console.log(data);   
-      if(data === "success"){
-        alert("IT WORKED RING DING DING");
-        //this.setState({msg: "added new item to catalog"});  
+      if(data.affectedRows === 1){
+        alert("Inserted successfully into the table");
       }
   }).catch(function(err) {
       console.log(err)
@@ -74,11 +75,60 @@ export default class Catalog extends Component {
     //this.setState({ responseToPost: body });
   };
 
+  handleSubmitDelete = async e => {
+    var data = {
+      pk: this.state.Title
+    }
+    fetch("/bookstore/Catalog/delete", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).then(function(response) {
+        if (response.status >= 400) {
+          alert("Error! Check your primary key and field values");
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+    }).then(function(data) {
+        if(data){
+          alert("Deleted successfully");
+        }
+    }).catch(function(err) {
+        console.log(err)
+    });
+  }
+
+  handleSubmitUpdate = async e => {
+    var data = {
+      pk: this.state.Title,
+      Author: this.state.Author,
+      Genres: this.state.Genres,
+      PublicationDate: this.state.PublicationDate
+    }
+    fetch("/bookstore/Catalog/update", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).then(function(response) {
+        if (response.status >= 400) {
+          alert("Error! Check your primary key and field values");
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+    }).then(function(data) {
+        if(data){
+          alert("Updated successfully");
+        }
+    }).catch(function(err) {
+        console.log(err)
+    });
+  }
+
   buttonCarousel = () => {
     return <Button.Group className="centered">
       <Button color="green" onClick={this.handleSubmitInsert}>Insert</Button>
-      <Button color="blue">Update</Button>
-      <Button color="red">Delete</Button>
+      <Button color="blue" onClick={this.handleSubmitUpdate}>Update</Button>
+      <Button color="red" onClick={this.handleSubmitDelete}>Delete</Button>
     </Button.Group>
   }
 

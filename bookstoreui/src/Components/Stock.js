@@ -3,8 +3,7 @@ import '../App.css';
 import { Button, Header, Table } from 'semantic-ui-react';
 
 const attributes = ['ISBN', 'Title', 'NumInStock', 'PrintType', 'Language','Price'];
-
-const pk = 'ISBN';
+//const pk = 'ISBN';
 
 export default class Stock extends Component {
     constructor(props) {
