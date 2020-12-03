@@ -71,7 +71,7 @@ DELIMITER $$
 CREATE PROCEDURE get_purchasable_books(IN CustomerID_ VARCHAR(255))
 BEGIN 
   SELECT Catalog.Title, Author, Stock.ISBN, PrintType, Price
-  FROM Stock USE INDEX (Stock_Title_Index)
+  FROM Stock USE INDEX (Stock_Title_Index, Stock_Price_Index)
   JOIN Catalog on Catalog.Title=Stock.Title
   WHERE Price < (SELECT Credit FROM Customers WHERE CustomerID=CustomerID_)
   AND NumInStock > 0;
