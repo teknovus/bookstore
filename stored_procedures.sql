@@ -14,7 +14,7 @@ DELIMITER $$
 
 CREATE PROCEDURE get_profits(IN start_date DATE, IN end_date DATE)
 BEGIN    
-  SET @profits = (select SUM(Price) from Orders where OrderDate >= start_date AND OrderDate <= end_date) - (select SUM(TotalPrice) from Wholesale where OrderDate >= start_date AND OrderDate <= end_date); 
+  SET @profits = (select SUM(Price) from Orders USE INDEX (Orders_Date_Index) where OrderDate >= start_date AND OrderDate <= end_date) - (select SUM(TotalPrice) from Wholesale USE INDEX (Wholesale_Date_Index) where OrderDate >= start_date AND OrderDate <= end_date); 
   SELECT @profits;
 END $$
 
@@ -40,11 +40,12 @@ DELIMITER $$
 CREATE PROCEDURE get_bestsellers(IN start_date DATE, IN end_date DATE, IN top_n INTEGER)
 BEGIN
   SELECT Catalog.Title, Author, COUNT(OrderNumber) as Sales
-  FROM Stock
-  JOIN Orders on Orders.ISBN=Stock.ISBN
+  FROM Stock USE INDEX (Stock_Title_Index)
   JOIN Catalog on Catalog.Title=Stock.Title
+  JOIN Orders USE INDEX (Orders_ISBN_Index, Orders_Date_Index) on Orders.ISBN=Stock.ISBN
   WHERE OrderDate >= start_date AND OrderDate <= end_date
   GROUP BY Catalog.Title
+  ORDER BY Sales DESC
   LIMIT top_n;
 END $$
 
@@ -70,7 +71,7 @@ DELIMITER $$
 CREATE PROCEDURE get_purchasable_books(IN CustomerID_ VARCHAR(255))
 BEGIN 
   SELECT Catalog.Title, Author, Stock.ISBN, PrintType, Price
-  FROM Stock
+  FROM Stock USE INDEX (Stock_Title_Index)
   JOIN Catalog on Catalog.Title=Stock.Title
   WHERE Price < (SELECT Credit FROM Customers WHERE CustomerID=CustomerID_)
   AND NumInStock > 0;
