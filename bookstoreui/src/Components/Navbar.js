@@ -63,6 +63,24 @@ export default class Navbar extends Component{
             name='Profit'
             active={activeItem === 'Profit'}
             onClick={this.handleItemClick}>Profits</Dropdown.Item>
+            <Dropdown.Item
+              as = { Link }
+              to = '/BestSeller'
+              name='Bestseller'
+              active={activeItem === 'Bestseller'}
+              onClick={this.handleItemClick}>Bestseller</Dropdown.Item>
+          <Dropdown.Item
+              as = { Link }
+              to = '/Purchasable'
+              name='Purchasable'
+              active={activeItem === 'Purchasable'}
+              onClick={this.handleItemClick}>Purchasable</Dropdown.Item>
+            <Dropdown.Item
+              as = { Link }
+              to = '/History'
+              name='History'
+              active={activeItem === 'History'}
+              onClick={this.handleItemClick}>History</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </Menu>

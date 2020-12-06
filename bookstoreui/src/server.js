@@ -34,6 +34,30 @@ app.route('/bookstore/BestSeller/submit').post(function(req, res, next) {
   );
 });
 
+app.route('/bookstore/Purchasable/submit').post(function(req, res, next) {
+  connection.query(
+    "CALL get_purchasable_books('"+req.body.customerID+"');",
+    //"CALL get_bestsellers(STR_TO_DATE('20000101','%Y%m%d'),STR_TO_DATE('20201231','%Y%m%d'), 5);",
+    req.params.userId,
+    function(error, results, fields) {
+      if (error) throw error;
+      res.send(JSON.stringify(results));
+    }
+  );
+});
+
+app.route('/bookstore/History/submit').post(function(req, res, next) {
+  connection.query(
+    "CALL get_customer_order_history('"+req.body.customerID+"');",
+    //"CALL get_bestsellers(STR_TO_DATE('20000101','%Y%m%d'),STR_TO_DATE('20201231','%Y%m%d'), 5);",
+    req.params.userId,
+    function(error, results, fields) {
+      if (error) throw error;
+      res.send(JSON.stringify(results));
+    }
+  );
+});
+
 app.route('/bookstore/Catalog')
   .get(function(req, res, next) {
     connection.query(
@@ -190,7 +214,9 @@ app.route('/bookstore/Orders')
 app.route('/bookstore/Orders/insert')
   .post(function(req, res, next) {
     connection.query(
-      "insert into Orders(CustomerID,OrderNumber,ISBN,OrderDate,Price,Status) values('"+req.body.CustomerID+"','"+req.body.OrderNumber+"','"+req.body.ISBN+"','"+req.body.OrderDate+"','"+req.body.Price+"','"+req.body.Status+"')", 
+      //"insert into Orders(CustomerID,OrderNumber,ISBN,OrderDate,Price,Status) values('"+req.body.CustomerID+"','"+req.body.OrderNumber+"','"+req.body.ISBN+"','"+req.body.OrderDate+"','"+req.body.Price+"','"+req.body.Status+"')", 
+      //"EXECUTE new_order USING '"+req.body.CustomerID+"','"+req.body.OrderNumber+"','"+req.body.ISBN+"', STR_TO_DATE('"+req.body.OrderDate+"'),'"+req.body.Price+"','"+req.body.Status+"'",
+      "CALL new_order('987654321', '123543760', '9780140008333', STR_TO_DATE('20200101','%Y%m%d'), "+9.99+", 'Refunded')",
       req.params.userId,
       function(error, results, fields) {
         if (error) throw error;

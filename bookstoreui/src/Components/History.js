@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Button, Header, Table, Form} from 'semantic-ui-react';
+import { Button, Header, Table, Form } from 'semantic-ui-react';
 
-const attributes = ['Title', 'Author', 'Sales'];
+const attributes = ['OrderNumber', 'ISBN', 'OrderDate', 'Price', 'Status'];
 
-export default class BestSeller extends Component {
+export default class History extends Component {
     constructor(props) {
         super(props)
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            StartDate: '',
-            EndDate: '',
-            Top: '',
+            customerID: '',
             table: []
         }
     }
@@ -25,12 +23,10 @@ export default class BestSeller extends Component {
         e.preventDefault();
         let self = this;
         var data = {
-            StartDate: this.state.StartDate,
-            EndDate: this.state.EndDate,
-            Top: this.state.Top
+            customerID: this.state.customerID
         }
 
-        fetch('/bookstore/BestSeller/submit', {
+        fetch('/bookstore/History/submit', {
             method: 'POST',
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify(data)
@@ -58,10 +54,12 @@ export default class BestSeller extends Component {
 
     displayValues = () => {
             return this.state.table.map(table =>
-                <Table.Row key={table.Title+table.Author}>
-                    <Table.Cell>{table.Title} </Table.Cell>
-                    <Table.Cell>{table.Author} </Table.Cell>
-                    <Table.Cell>{table.Sales}</Table.Cell>
+                <Table.Row key={table.OrderNumber+table.ISBN}>
+                    <Table.Cell>{table.OrderNumber} </Table.Cell>
+                    <Table.Cell>{table.ISBN} </Table.Cell>
+                    <Table.Cell>{table.OrderDate}</Table.Cell>
+                    <Table.Cell>{table.Price}</Table.Cell>
+                    <Table.Cell>{table.Status}</Table.Cell>
                 </Table.Row>
             )
     }
@@ -71,9 +69,7 @@ export default class BestSeller extends Component {
             <div>
                 <Form>
                     <Form.Group widths="equal" className="margin-bottom">
-                        <Form.Input label="StartDate" name="StartDate" placeholder="Start Date:YYYYMMDD" onChange={this.handleChange} value={this.state.StartDate} />
-                        <Form.Input label="EndDate" name="EndDate" placeholder="End Date:YYYYMMDD" onChange={this.handleChange} value={this.state.EndDate}/>
-                        <Form.Input label="Top #" name="Top" placeholder="Top #" onChange={this.handleChange} value={this.state.Top}/>
+                        <Form.Input label="CustomerID" name="customerID" placeholder="CustomerID: XXXXXXXXX" onChange={this.handleChange} value={this.state.customerID}/>
                     </Form.Group>
                 </Form>
                 <Button color="green" onClick={this.handleSubmit}>Submit to Execute Report</Button>

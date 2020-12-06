@@ -1,0 +1,1 @@
+CREATE INDEX Stock_Price_Index ON Stock(Price);

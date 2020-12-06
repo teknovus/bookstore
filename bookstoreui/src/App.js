@@ -10,6 +10,9 @@ import Orders from './Components/Orders.js';
 import Stock from './Components/Stock.js';
 import Wholesale from './Components/Wholesale.js';
 import Profit from './Components/Profit.js';
+import BestSeller from './Components/BestSeller.js';
+import Purchasable from './Components/Purchasable.js';
+import History from './Components/History.js';
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
               <Route path="/Stock" component={Stock} />
               <Route path="/Wholesale" component={Wholesale} />
               <Route path="/Profit" component={Profit} />
+              <Route path="/Bestseller" component={BestSeller} />
+              <Route path="/Purchasable" component={Purchasable} />
+              <Route path="/History" component={History} />
               <Redirect to="/" />
             </Switch>   
         </Container>
