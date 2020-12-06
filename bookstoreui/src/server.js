@@ -10,6 +10,30 @@ app.use(bodyParser.json());
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.route('/bookstore/Profit/submit').post(function(req, res, next) {
+  connection.query(
+    "CALL get_profits(STR_TO_DATE('"+req.body.StartDate+"','%Y%m%d'),STR_TO_DATE('"+req.body.EndDate+"','%Y%m%d'));",
+    //"CALL get_profits(STR_TO_DATE('20100101','%Y%m%d'),STR_TO_DATE('20201231','%Y%m%d'));",
+    req.params.userId,
+    function(error, results, fields) {
+      if (error) throw error;
+      res.send(JSON.stringify(results));
+    }
+  );
+});
+
+app.route('/bookstore/BestSeller/submit').post(function(req, res, next) {
+  connection.query(
+    "CALL get_bestsellers(STR_TO_DATE('"+req.body.StartDate+"','%Y%m%d'),STR_TO_DATE('"+req.body.EndDate+"','%Y%m%d'), '"+req.body.Top+"');",
+    //"CALL get_bestsellers(STR_TO_DATE('20000101','%Y%m%d'),STR_TO_DATE('20201231','%Y%m%d'), 5);",
+    req.params.userId,
+    function(error, results, fields) {
+      if (error) throw error;
+      res.send(JSON.stringify(results));
+    }
+  );
+});
+
 app.route('/bookstore/Catalog')
   .get(function(req, res, next) {
     connection.query(

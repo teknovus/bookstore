@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Dropdown, Menu } from "semantic-ui-react";
 import "../App.css";
 
 export default class Navbar extends Component{
@@ -55,6 +55,16 @@ export default class Navbar extends Component{
           active={activeItem === 'Wholesale'}
           onClick={this.handleItemClick}
         />
+        <Dropdown item text='Reports'>
+          <Dropdown.Menu>
+            <Dropdown.Item
+            as = { Link }
+            to = '/Profit'
+            name='Profit'
+            active={activeItem === 'Profit'}
+            onClick={this.handleItemClick}>Profits</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </Menu>
     )
   }

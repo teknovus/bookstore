@@ -9,7 +9,7 @@ import Customers from './Components/Customers.js';
 import Orders from './Components/Orders.js';
 import Stock from './Components/Stock.js';
 import Wholesale from './Components/Wholesale.js';
-
+import Profit from './Components/Profit.js';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
               <Route path="/Orders" component={Orders} />
               <Route path="/Stock" component={Stock} />
               <Route path="/Wholesale" component={Wholesale} />
+              <Route path="/Profit" component={Profit} />
               <Redirect to="/" />
             </Switch>   
         </Container>

@@ -14,7 +14,14 @@ DELIMITER $$
 
 CREATE PROCEDURE get_profits(IN start_date DATE, IN end_date DATE)
 BEGIN    
-  SET @profits = (select SUM(Price) from Orders USE INDEX (Orders_Date_Index) where OrderDate >= start_date AND OrderDate <= end_date) - (select SUM(TotalPrice) from Wholesale USE INDEX (Wholesale_Date_Index) where OrderDate >= start_date AND OrderDate <= end_date); 
+  SET @profits = (
+    select SUM(Price) 
+    from Orders USE INDEX (Orders_Date_Index) 
+    where OrderDate >= start_date AND OrderDate <= end_date) - 
+  (
+    select SUM(TotalPrice) from Wholesale USE INDEX (Wholesale_Date_Index) 
+    where OrderDate >= start_date AND OrderDate <= end_date
+    ); 
   SELECT @profits;
 END $$
 
