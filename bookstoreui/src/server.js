@@ -214,9 +214,10 @@ app.route('/bookstore/Orders')
 app.route('/bookstore/Orders/insert')
   .post(function(req, res, next) {
     connection.query(
-      //"insert into Orders(CustomerID,OrderNumber,ISBN,OrderDate,Price,Status) values('"+req.body.CustomerID+"','"+req.body.OrderNumber+"','"+req.body.ISBN+"','"+req.body.OrderDate+"','"+req.body.Price+"','"+req.body.Status+"')", 
+      "insert into Orders(CustomerID,OrderNumber,ISBN,OrderDate,Price,Status) values('"+req.body.CustomerID+"','"+req.body.OrderNumber+"','"+req.body.ISBN+"','"+req.body.OrderDate+"','"+req.body.Price+"','"+req.body.Status+"')", 
+      // Unable to run these due to GCP SUPERUSER/SYSADMIN Requirements, which we could not find online to elevate user priviledges to
       //"EXECUTE new_order USING '"+req.body.CustomerID+"','"+req.body.OrderNumber+"','"+req.body.ISBN+"', STR_TO_DATE('"+req.body.OrderDate+"'),'"+req.body.Price+"','"+req.body.Status+"'",
-      "CALL new_order('987654321', '123543760', '9780140008333', STR_TO_DATE('20200101','%Y%m%d'), "+9.99+", 'Refunded')",
+      //"CALL new_order('987654321', '123543760', '9780140008333', STR_TO_DATE('20200101','%Y%m%d'), "+9.99+", 'Refunded')",
       req.params.userId,
       function(error, results, fields) {
         if (error) throw error;
